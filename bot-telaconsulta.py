@@ -31,8 +31,9 @@ py.write('25')
 py.press('-')
 py.write('08')
 
-py.click(x=382, y=477)
+#py.click(x=382, y=477)
 
+py.click(x=415, y=588)
 n = 4
 i = 0
 
@@ -45,17 +46,14 @@ while i < n:
 
 py.click(x=414, y=342)
 
-icon_pos = py.locateOnScreen('alertaconcluido.png')
-
-wait_icon = 1
 while 1:
+    icon_pos = py.locateOnScreen('alertaconcluido.png')
     if icon_pos:
         py.click(x=1054, y=597)
         print('Consulta Finalizada')
-        py.click(x=1326, y=278)
-        wait_icon = 0
-
-py.click(x=582, y=769)
+        break
+        
+py.click(x=1326, y=278)
 
 
 

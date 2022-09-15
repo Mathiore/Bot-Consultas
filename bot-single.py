@@ -10,14 +10,13 @@ py.keyDown('alt')
 py.press('tab')
 py.keyUp('alt')
 
-time.sleep(1)
 
-py.moveTo(1054, 597)
 
-icon_pos = py.locateOnScreen('alertaconcluido.png')
-
-if icon_pos:
-    py.click(x=1054, y=597)
-    print('Consulta Finalizada')
-    py.click(x=1326, y=278)
-    
+while 1:
+    icon_pos = py.locateOnScreen('alertaconcluido.png')
+    if icon_pos:
+        py.click(x=1054, y=597)
+        print('Consulta Finalizada')
+        break
+        
+py.click(x=1326, y=278)
