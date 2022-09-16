@@ -1,5 +1,6 @@
 import pyautogui as py
 import time
+import module
 from PIL import Image
 
 currentMouseX, currentMouseY = py.position()
@@ -14,12 +15,7 @@ print(py.position())
 
 #COMANDOS DE MOUSE
 #ABRINDO A CONSULTA DE DI'S
-py.moveTo(252, 37)
-py.doubleClick()
-py.click(x=244, y=79)
-time.sleep(1)
-py.click(x=1177, y=650)
-time.sleep(17)
+module.abrir_consultas()
 
 #CONFIGURANDO DATA
 py.click(x=392, y=405)
