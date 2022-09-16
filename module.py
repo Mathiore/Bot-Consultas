@@ -31,6 +31,7 @@ def fechar_inova():
     py.doubleClick(x=961, y=591)
 
 
+#ALTERE A SENHA CASO USUÁRIO DIFERENTE.
 def login_inova():
     py.click(x=658, y=1063)
     while 1:
