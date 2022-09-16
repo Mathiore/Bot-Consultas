@@ -13,8 +13,7 @@ ano_inicial = '2022'
 ano_final = '2022'
 
 def abrir_consultas():
-    py.moveTo(252, 37)
-    py.doubleClick()
+    py.click(x=252, y=37)
     py.click(x=244, y=79)
     time.sleep(1)
     py.click(x=1177, y=650)
@@ -29,7 +28,7 @@ def fechar_inova():
     print('Consultas bloqueadas')
     py.click(x=42, y=35)
     py.click(x=40, y=111)
-    py.click(x=961, y=591)
+    py.doubleClick(x=961, y=591)
 
 
 def login_inova():
@@ -60,4 +59,19 @@ def datas_single():
     py.press('-')
     py.write(mes_final)
     py.click(x=386, y=340)
+
+def verifica_inova():
+    inova_open = py.locateOnScreen('img/inova_open.png')
+    if inova_open:
+        print('Inova já está Aberto!')
+    else:
+        print('Abrindo Inova')
+        login_inova()
+
+    time.sleep(1)
+    teladi_ativa = py.locateOnScreen('img/teladis.png')
+    if teladi_ativa:
+        print('Tela de Di já aberta!')
+    else:
+        abrir_consultas()
     

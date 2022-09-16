@@ -9,13 +9,13 @@ print(py.position())
 
 
 #COMANDOS DE TECLADO ALTERAÇÃO DE JANELA
-#py.keyDown('alt')
-#py.press('tab')
-#py.keyUp('alt')
+py.keyDown('alt')
+py.press('tab')
+py.keyUp('alt')
 
 #COMANDOS DE MOUSE
 #ABRINDO A CONSULTA DE DI'S
-module.abrir_consultas()
+module.verifica_inova()
 
 #CONFIGURANDO DATA
 py.click(x=392, y=405)
