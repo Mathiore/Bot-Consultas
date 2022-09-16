@@ -2,7 +2,6 @@ import pyautogui as py
 import time
 
 py.click(x=658, y=1063)
-
 while 1:
     login_pos = py.locateOnScreen('img/login.png')
     if login_pos:

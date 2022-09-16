@@ -1,6 +1,7 @@
 import pyautogui as py
 from PIL import Image
 import time
+import module
 screenWidth, screenHeight = py.size()
 currentMouseX, currentMouseY = py.position()
 
@@ -9,6 +10,22 @@ print(py.position())
 py.keyDown('alt')
 py.press('tab')
 py.keyUp('alt')
+
+
+time.sleep(1)
+teladi_ativa = py.locateOnScreen('img/teladis.png')
+if teladi_ativa:
+    print('Tela de Di já aberta!')
+else:
+    py.keyDown('alt')
+    py.press('tab')
+    py.keyUp('alt')
+    module.abrir_consultas()
+
+#Clica na aba de Di's
+py.click(x=586, y=313)
+
+module.datas_single()
 
 while 1:
     retifica_btn = py.locateOnScreen('img/botao_retificacao.png')
@@ -36,6 +53,11 @@ while i < n:
         bloqueio = py.locateOnScreen('img/bloqueiosingle.png')
         if bloqueio:
             py.click(x=1403, y=289)
+            while 1:
+                if bloqueio:
+                    py.click(x=1196, y=705)
+                    time.sleep(0.5)
+                    py.click(x=1125, y=728)
         elif icon_pos:
             py.click(x=1046, y=596)
             py.click(x=1403, y=289)
