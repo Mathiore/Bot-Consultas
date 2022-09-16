@@ -43,14 +43,12 @@ while 1:
             retificado = py.locateOnScreen('img/retificado.png')
             bloqueio = py.locateOnScreen('img/bloqueiosingle.png')
             if bloqueio:
-                py.click(x=1403, y=289)
+                module.copiar_di()
+                py.click(x=658, y=1063)
+                py.click(x=1398, y=287)
+                module.fechar_inova()
                 while 1:
-                    if bloqueio:
-                        py.click(x=1196, y=705)
-                        time.sleep(1)
-                        py.click(x=1125, y=728)
-                        module.fechar_inova()
-                        break
+                    break
             elif icon_pos:
                 py.click(x=1046, y=596)
                 py.click(x=1403, y=289)

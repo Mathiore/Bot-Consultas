@@ -10,11 +10,4 @@ print(py.position())
 #py.press('tab')
 #py.keyUp('alt')
 
-
-py.click(x=586, y=329)
-
-while 1:
-    consulta_pos = py.locateOnScreen('img/teladis.png')
-    if consulta_pos:
-        print('Tela de Di Aberta')
-        break
+module.fechar_inova()

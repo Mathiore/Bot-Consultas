@@ -29,7 +29,8 @@ def fechar_inova():
     print('Consultas bloqueadas')
     py.click(x=42, y=35)
     py.click(x=40, y=111)
-    py.doubleClick(x=961, y=591)
+    time.sleep(1)
+    py.click(x=961, y=591)
 
 
 #ALTERE A SENHA CASO USUÁRIO DIFERENTE.
@@ -87,4 +88,18 @@ def verifica_inova():
         login_inova()
         time.sleep(4)
         abrir_consultas()
-    
+
+def copiar_di():
+    py.click(x=601, y=388)
+    py.keyDown('ctrl')
+    py.press('a')
+    py.keyUp('ctrl')
+    py.keyDown('ctrl')
+    py.press('c')
+    py.keyUp('ctrl')
+    py.click(x=709, y=1058)
+    py.press('enter')
+    py.keyDown('ctrl')
+    py.press('v')
+    py.keyUp('ctrl')
+
