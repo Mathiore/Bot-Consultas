@@ -20,6 +20,7 @@ def abrir_consultas():
     while 1:
         consulta_pos = py.locateOnScreen('img/teladis.png')
         if consulta_pos:
+            print('Tela de Di Aberta')
             break
 
 
@@ -42,8 +43,6 @@ def login_inova():
             print('Conta Acessada')
             time.sleep(3)
             py.click(x=1406, y=267)
-            break
-        else:
             break
 
 
@@ -79,8 +78,10 @@ def verifica_inova():
     teladi_ativa = py.locateOnScreen('img/teladis.png')
     if inova_open:
         print('Inova já está Aberto!')
-    elif teladi_ativa:
-        print('Tela de Di já aberta!')
+        if teladi_ativa:
+            print('Tela de Di já aberta!')
+        else:
+            abrir_consultas()
     else:
         print('Abrindo Inova')
         login_inova()

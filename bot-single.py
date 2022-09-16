@@ -58,12 +58,14 @@ while 1:
             elif retificado:
                 print('Consultas já Finalizadas')
                 break
-        position_x = position_x+2
-        position_y = position_y+20
-        consult_x = consult_x+5
-        consult_y = consult_y+30
+        #position_x = position_x+2
+        #position_y = position_y+20
+        #consult_x = consult_x+5
+        #consult_y = consult_y+30
         py.click(x=position_x, y=position_y)
+        py.click(x=386, y=340)
         time.sleep(5)
+        py.click(1123, 491)
         retificado = py.locateOnScreen('img/retificado.png')
         if retificado:
             print('Consultas Finalizadas')
