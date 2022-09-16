@@ -4,7 +4,7 @@ import time
 py.click(x=658, y=1063)
 
 while 1:
-    login_pos = py.locateOnScreen('login.png')
+    login_pos = py.locateOnScreen('img/login.png')
     if login_pos:
         py.press('tab')
         py.write('pp348247')

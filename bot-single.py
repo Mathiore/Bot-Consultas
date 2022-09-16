@@ -17,22 +17,33 @@ while 1:
         break
 
 
-py.click(x=1132, y=525)
+position_x = 1132 
+position_y = 525
+i = 0
+n = 5
 
-py.click(button='right')
+while i < n:
+    py.click(x=position_x, y=position_y)
+    py.click(button='right')
+    py.click(x=position_x+12, y=position_y+5)
+    py.click(x=1177, y=650)
+    time.sleep(2)
+    py.click(x=535, y=324)
 
-py.click(x=1146, y=530)
+    while 1:
+        icon_pos = py.locateOnScreen('img/concluidosingle.png')
+        retificado = py.locateOnScreen('img/retificado.png')
+        bloqueio = py.locateOnScreen('img/bloqueiosingle.png')
+        if bloqueio:
+            py.click(x=1403, y=289)
+        elif icon_pos:
+            py.click(x=1046, y=596)
+            py.click(x=1403, y=289)
+            break
+    position_x = position_x+2
+    position_y = position_y+20
+    py.click(x=position_x, y=position_y)
+    
 
-py.click(x=1177, y=650)
 
-time.sleep(2)
-
-py.click(x=535, y=324)
-
-while 1:
-    icon_pos = py.locateOnScreen('img/alertaconcluido.png')
-    if icon_pos:
-        py.click(x=1046, y=596)
-        py.click(x=1403, y=289)
-        break
 
