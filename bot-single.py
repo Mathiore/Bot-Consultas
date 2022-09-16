@@ -7,10 +7,6 @@ currentMouseX, currentMouseY = py.position()
 
 print(py.position())
 
-py.keyDown('alt')
-py.press('tab')
-py.keyUp('alt')
-
 while 1:
     module.verifica_inova()
 
@@ -28,15 +24,16 @@ while 1:
 
     position_x = 1132 
     position_y = 525
-    consult_x = 1132
-    consult_y = 525
+    consult_x = 1144
+    consult_y = 530
     i = 0
     n = 10
 
     while i < n:
         py.click(x=position_x, y=position_y)
         py.click(button='right')
-        py.click(x=consult_x+12, y=consult_y+5)
+        py.click(x=consult_x, y=consult_y)
+        time.sleep(1)
         py.click(x=1177, y=650)
         time.sleep(2)
         py.click(x=535, y=324)
@@ -63,14 +60,15 @@ while 1:
                 break
         position_x = position_x+2
         position_y = position_y+20
+        consult_x = consult_x+5
+        consult_y = consult_y+30
         py.click(x=position_x, y=position_y)
         time.sleep(5)
-    
+        retificado = py.locateOnScreen('img/retificado.png')
+        if retificado:
+            print('Consultas Finalizadas')
+            break
     time.sleep(1860)
-    retificado = py.locateOnScreen('img/retificado.png')
-    if retificado:
-        print('Consultas Finalizadas')
-        break
     
 
 

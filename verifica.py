@@ -1,22 +1,13 @@
-from select import select
 import pyautogui as py
+from PIL import Image
 import time
 import module
-from PIL import Image
-import selectLetras
+screenWidth, screenHeight = py.size()
 currentMouseX, currentMouseY = py.position()
 
-#ABRINDO A CONSULTA DE DI'S
-module.verifica_inova()
+print(py.position())
 
-#CONFIGURANDO DATA
-module.data_consultas()
-
-#Selecionar ultima opção tela consultas
-#selectLetras.selecionar_letraD()
-
-py.click(x=414, y=342)
-
+py.click(x=658, y=1063)
 
 while 1:
     icon_pos = py.locateOnScreen('img/alertaconcluido.png')
@@ -33,9 +24,4 @@ while 1:
         print('Consulta Finalizada')
         time.sleep(1)
         py.click(x=1326, y=278)
-
         break
-        
-
-
-

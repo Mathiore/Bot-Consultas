@@ -33,7 +33,6 @@ def fechar_inova():
 
 #ALTERE A SENHA CASO USUÁRIO DIFERENTE.
 def login_inova():
-    py.click(x=658, y=1063)
     while 1:
         login_pos = py.locateOnScreen('img/login.png')
         if login_pos:
@@ -43,6 +42,8 @@ def login_inova():
             print('Conta Acessada')
             time.sleep(3)
             py.click(x=1406, y=267)
+            break
+        else:
             break
 
 
@@ -61,18 +62,28 @@ def datas_single():
     py.write(mes_final)
     py.click(x=386, y=340)
 
+
+def data_consultas():
+    py.click(x=392, y=405)
+    py.write(dia_inicial)
+    py.press('-')
+    py.write(mes_inicial)
+    py.press('tab')
+    py.write(dia_final)
+    py.press('-')
+    py.write(mes_final)
+
 def verifica_inova():
+    py.click(x=658, y=1063)
     inova_open = py.locateOnScreen('img/inova_open.png')
+    teladi_ativa = py.locateOnScreen('img/teladis.png')
     if inova_open:
         print('Inova já está Aberto!')
+    elif teladi_ativa:
+        print('Tela de Di já aberta!')
     else:
         print('Abrindo Inova')
         login_inova()
-
-    time.sleep(1)
-    teladi_ativa = py.locateOnScreen('img/teladis.png')
-    if teladi_ativa:
-        print('Tela de Di já aberta!')
-    else:
+        time.sleep(4)
         abrir_consultas()
     
