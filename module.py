@@ -9,6 +9,6 @@ def abrir_consultas():
     time.sleep(1)
     py.click(x=1177, y=650)
     while 1:
-        consulta_pos = py.locateOnScreen('teladis.png')
+        consulta_pos = py.locateOnScreen('img/teladis.png')
         if consulta_pos:
             break

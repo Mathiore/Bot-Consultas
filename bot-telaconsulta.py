@@ -49,8 +49,8 @@ py.click(x=414, y=342)
 
 
 while 1:
-    icon_pos = py.locateOnScreen('alertaconcluido.png')
-    blockicon_pos = py.locateOnScreen('teladebloqueio.png')
+    icon_pos = py.locateOnScreen('img/alertaconcluido.png')
+    blockicon_pos = py.locateOnScreen('img/teladebloqueio.png')
     if blockicon_pos:
         py.click(x=1556, y=251)
         print('Consultas bloqueadas')
