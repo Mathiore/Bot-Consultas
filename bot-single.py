@@ -11,6 +11,12 @@ py.keyDown('alt')
 py.press('tab')
 py.keyUp('alt')
 
+inova_open = py.locateOnScreen('img/inova_open.png')
+if inova_open:
+    print('Inova já está Aberto!')
+else:
+    print('Abrindo Inova')
+    module.login_inova()
 
 time.sleep(1)
 teladi_ativa = py.locateOnScreen('img/teladis.png')
@@ -58,6 +64,8 @@ while i < n:
                     py.click(x=1196, y=705)
                     time.sleep(0.5)
                     py.click(x=1125, y=728)
+                    module.fechar_inova()
+                    break
         elif icon_pos:
             py.click(x=1046, y=596)
             py.click(x=1403, y=289)
