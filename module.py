@@ -93,12 +93,8 @@ def verifica_inova():
 
 def copiar_di():
     py.click(x=601, y=388)
-    py.keyDown('ctrl')
-    py.press('a')
-    py.keyUp('ctrl')
-    py.keyDown('ctrl')
-    py.press('c')
-    py.keyUp('ctrl')
+    py.hotkey('ctrl','a')
+    py.hotkey('ctrl','c')
     py.click(x=709, y=1058)
     py.press('enter')
     py.keyDown('ctrl')

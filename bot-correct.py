@@ -7,6 +7,8 @@ from datetime import datetime
 
 #SEMPRE DEIXE O BLOCO DE NOTAS ABERTO E FIXO.
 
+linha = 0
+
 def consulta_porLinhas():
     while 1:
         di_perdidas = open('dis_perdidas.txt', 'r')
@@ -28,26 +30,45 @@ def consulta_porLinhas():
         py.click(x=1144, y=530)
         time.sleep(1)
         py.click(x=1177, y=650)
-        linha = 0
+        while 1:
+            time.sleep(8)
+            siscomex = py.locateOnScreen('img/aberto_consulta.png')
+            if siscomex:
+                break
+            else:
+                print('Ocorreu algum erro ao abrir o Siscomex.')
+                py.click(x=1394, y=285)
+                module.fechar_inova()
+                gc.collect()
+                consulta_porLinhas()
         total_linhas = len(conteudo)
         while linha <= total_linhas:
             py.click(x=597, y=390)
-            py.keyDown('ctrl')
-            py.press('a')
-            py.keyUp('ctrl')
+            py.hotkey('ctrl', 'a')
             py.press('backspace')
             py.write(conteudo[linha])
             time.sleep(1)
             py.click(x=535, y=324)
+            print('Consultando: ', conteudo[linha])
             linha = linha + 1
             while 1:
                 icon_pos = py.locateOnScreen('img/concluidosingle.png')
                 bloqueio = py.locateOnScreen('img/bloqueiosingle.png')
                 if icon_pos:
                     py.click(x=1046, y=596)
-                    print('Consultado: ', conteudo[linha])
+                    print('Concluido!')
                     break
                 elif bloqueio:
+                    print('Falhou!')
+                    print('Apagando DIs Concluídas.')
+                    i = 0
+                    py.click(x=715, y=1060)
+                    py.click(x=380, y=325)
+                    while i < linha:
+                        py.keyDown('ctrl')
+                        py.keyDown('alt')
+                        py.press()
+                    py.click(x=1394, y=285)
                     module.fechar_inova()
                     time.sleep(1800)
                     now = datetime.now()
@@ -57,7 +78,8 @@ def consulta_porLinhas():
                     print("Horário agora: ", timestamp)
                     gc.collect()
                     consulta_porLinhas()
-
+        print('Tudo Concluído!')
+        break
 
 
 consulta_porLinhas()

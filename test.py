@@ -7,14 +7,14 @@ import gc
 from datetime import datetime
 
 
-di_perdidas = open('dis_perdidas.txt', 'r')
+di_perdidas = open('teste.txt', 'r')
 conteudo = di_perdidas.readlines()
 
-line = 0
+py.click(x=715, y=1060)
+py.click(x=380, y=325)
 
-print(conteudo[line])
-
-
-py.click(x=709, y=1058)
-py.press('enter')
-py.write(conteudo[line])
+py.keyDown('ctrl') 
+py.keyDown('shift')
+py.press(['right', 'right', 'right'])
+py.keyUp('ctrl')
+py.keyUp('shift')
