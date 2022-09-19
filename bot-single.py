@@ -2,10 +2,8 @@ import pyautogui as py
 from PIL import Image
 import time
 import module
-screenWidth, screenHeight = py.size()
-currentMouseX, currentMouseY = py.position()
+import gc
 
-print(py.position())
 def consulta_1v1():
     while 1:
         module.verifica_inova()
@@ -48,6 +46,9 @@ def consulta_1v1():
                     py.click(x=1398, y=287)
                     module.fechar_inova()
                     time.sleep(900)
+                    print('Já se passaram 15 minutos!')
+                    print('Realizando Limpeza de memória!')
+                    gc.collect()
                     consulta_1v1()
                 elif icon_pos:
                     py.click(x=1046, y=596)
@@ -68,7 +69,6 @@ def consulta_1v1():
             if retificado:
                 print('Consultas Finalizadas')
                 break
-
 
 consulta_1v1()
 

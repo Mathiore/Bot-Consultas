@@ -101,5 +101,7 @@ def copiar_di():
     py.press('enter')
     py.keyDown('ctrl')
     py.press('v')
+    py.press('s')
     py.keyUp('ctrl')
+    
 
