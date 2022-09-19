@@ -1,3 +1,4 @@
+from re import S
 import pyautogui as py
 import time
 
@@ -73,21 +74,22 @@ def data_consultas():
     py.press('-')
     py.write(mes_final)
 
+def verificatela_di():
+    teladi_ativa = py.locateOnScreen('img/teladis.png')
+    if teladi_ativa:
+        print('Tela de DI já aberta.')
+    else:
+        abrir_consultas()
+
 def verifica_inova():
     py.click(x=658, y=1063)
     inova_open = py.locateOnScreen('img/inova_open.png')
-    teladi_ativa = py.locateOnScreen('img/teladis.png')
     if inova_open:
         print('Inova já está Aberto!')
-        if teladi_ativa:
-            print('Tela de Di já aberta!')
-        else:
-            abrir_consultas()
     else:
         print('Abrindo Inova')
         login_inova()
         time.sleep(4)
-        abrir_consultas()
 
 def copiar_di():
     py.click(x=601, y=388)
@@ -104,4 +106,9 @@ def copiar_di():
     py.press('s')
     py.keyUp('ctrl')
     
+def bloco_notas():
+    di_perdidas = open('dis_perdidas.txt', 'r')
+    conteudo = di_perdidas.readlines()
 
+
+        

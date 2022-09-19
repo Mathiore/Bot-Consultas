@@ -3,10 +3,13 @@ from PIL import Image
 import time
 import module
 import gc
+from datetime import datetime
 
 def consulta_1v1():
     while 1:
         module.verifica_inova()
+
+        module.verificatela_di()
 
         #Clica na aba de Di's
         py.click(x=586, y=313)
@@ -33,9 +36,14 @@ def consulta_1v1():
             py.click(x=consult_x, y=consult_y)
             time.sleep(1)
             py.click(x=1177, y=650)
-            time.sleep(2)
-            py.click(x=535, y=324)
-
+            time.sleep(5)
+            bloqueio_receita = py.locateOnScreen('img/bloqueiocomex.png')
+            if bloqueio_receita:
+                module.fechar_inova()
+                time.sleep(120)
+                consulta_1v1()
+            else:
+                py.click(x=535, y=324)
             while 1:
                 icon_pos = py.locateOnScreen('img/concluidosingle.png')
                 retificado = py.locateOnScreen('img/retificado.png')
@@ -45,9 +53,12 @@ def consulta_1v1():
                     py.click(x=658, y=1063)
                     py.click(x=1398, y=287)
                     module.fechar_inova()
-                    time.sleep(900)
-                    print('Já se passaram 15 minutos!')
+                    time.sleep(1800)
+                    now = datetime.now()
+                    timestamp = datetime.timestamp(now)
+                    print('Já se passaram 30 minutos!')
                     print('Realizando Limpeza de memória!')
+                    print("Horário agora: ", timestamp)
                     gc.collect()
                     consulta_1v1()
                 elif icon_pos:
