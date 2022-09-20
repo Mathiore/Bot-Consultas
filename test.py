@@ -6,9 +6,90 @@ import module
 import gc
 from datetime import datetime
 
+py.alert(text='Digite o acesso da conta: ', title='Alerta', button='OK')
+usuario = input('Digite o usuário: ')
+senha = input('Digite a senha: ')
+py.alert(text='Digite o período da Consulta!', title='Alerta', button='OK')
+dia_inicial = input('Digite o dia inicial da consulta: ')
+mes_inicial = input('Digite o mês inicial da consulta: ')
+dia_final = input('Digite o dia final da consulta: ')
+mes_final = input('Digite o mês final da consulta: ') 
 py.click(x=1144, y=288)
+linha = 0
 while 1:
-    bloco_notas = py.locateOnScreen('img/bloco_notas.png')
-    if bloco_notas:
-        py.click(bloco_notas)
-        break
+
+        di_perdidas = open('dis_perdidas.txt', 'r')
+        conteudo = di_perdidas.readlines()
+
+        module.verifica_inova(usuario, senha)
+
+        module.verificatela_di()
+
+        #Clica na aba de Di's
+        py.click(x=586, y=313)
+
+        module.datas_single(dia_inicial, mes_inicial, dia_final, mes_final)
+        
+        while 1:
+            retifica_btn = py.locateOnScreen('img/botao_retificacao.png')
+            if retifica_btn:
+                break
+        py.click(x=1132, y=525)
+        py.click(button='right')
+        py.click(x=1144, y=530)
+        time.sleep(1)
+        py.click(x=1177, y=650)
+        while 1:
+            time.sleep(8)
+            siscomex = py.locateOnScreen('img/aberto_consulta.png')
+            if siscomex:
+                break
+            else:
+                print('Ocorreu algum erro ao abrir o Siscomex.')
+                py.click(x=1394, y=285)
+                module.fechar_inova()
+                gc.collect()
+                module.consulta_porLinhas()
+        total_linhas = len(conteudo)
+        while linha <= total_linhas:
+            py.click(x=597, y=390)
+            py.hotkey('ctrl', 'a')
+            py.press('backspace')
+            py.write(conteudo[linha])
+            time.sleep(1)
+            py.click(x=535, y=324)
+            print('Consultando: ', conteudo[linha])
+            linha = linha + 1
+            while 1:
+                icon_pos = py.locateOnScreen('img/concluidosingle.png')
+                bloqueio = py.locateOnScreen('img/bloqueiosingle.png')
+                if icon_pos:
+                    py.click(x=1046, y=596)
+                    print('Concluido!')
+                    break
+                elif bloqueio:
+                    print('Falhou!')
+                    print('Apagando DIs Concluídas.')
+                    i = 0
+                    py.click(x=715, y=1060)
+                    py.click(x=380, y=325)
+                    while i < linha:
+                        py.keyDown('ctrl') 
+                        py.keyDown('shift')
+                        py.press(['right', 'right', 'right'])
+                        py.keyUp('ctrl')
+                        py.keyUp('shift')
+                        py.press('backspace')
+                        i = i + 1
+                    py.click(x=1394, y=285)
+                    module.fechar_inova()
+                    time.sleep(1800)
+                    now = datetime.now()
+                    timestamp = datetime.timestamp(now)
+                    print('Já se passaram 30 minutos!')
+                    print('Realizando Limpeza de memória!')
+                    print("Horário agora: ", timestamp)
+                    gc.collect()
+                    module.consulta_porLinhas()
+        print('Tudo Concluído!')
+        break        

@@ -102,20 +102,23 @@ def copiar_di():
     py.keyUp('ctrl')
     
 
-def consulta_porLinhas():
+def consulta_porLinhas(usuario, senha, dia_inicial, mes_inicial, dia_final, mes_final):
     linha = 0
     while 1:
 
         di_perdidas = open('dis_perdidas.txt', 'r')
         conteudo = di_perdidas.readlines()
-        verifica_inova()
 
+        verifica_inova(usuario, senha)
+        print('Continuando')
         verificatela_di()
+        print('falha')
 
         #Clica na aba de Di's
         py.click(x=586, y=313)
 
-        datas_single()
+        datas_single(dia_inicial, mes_inicial, dia_final, mes_final)
+
         while 1:
             retifica_btn = py.locateOnScreen('img/botao_retificacao.png')
             if retifica_btn:

@@ -90,10 +90,12 @@ def consulta_1v1():
             time.sleep(10)
             py.click(1123, 491)
             retificado = py.locateOnScreen('img/retificado.png')
+            sair_di = py.locateOnScreen('img/exit_di.png')
             if retificado:
                 print('Consultas Finalizadas')
+                py.click(sair_di)
                 break
 
 consulta_1v1()
-
+py.click(x=1144, y=288)
 module.consulta_porLinhas(usuario, senha, dia_inicial, mes_inicial, dia_final, mes_final)
