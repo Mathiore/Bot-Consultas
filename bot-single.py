@@ -5,23 +5,33 @@ import module
 import gc
 from datetime import datetime
 
+
+py.alert(text='Digite o acesso da conta: ', title='Alerta', button='OK')
+usuario = input('Digite o usuário: ')
+senha = input('Digite a senha: ')
+py.alert(text='Digite o período da Consulta!', title='Alerta', button='OK')
+dia_inicial = input('Digite o dia inicial da consulta: ')
+mes_inicial = input('Digite o mês inicial da consulta: ')
+dia_final = input('Digite o dia final da consulta: ')
+mes_final = input('Digite o mês final da consulta: ') 
+
 def consulta_1v1():
+
     while 1:
-        module.verifica_inova()
+        module.verifica_inova(usuario, senha)
 
         module.verificatela_di()
 
         #Clica na aba de Di's
-        py.click(x=586, y=313)
-
-        module.datas_single()
+        py.click(x=586, y=313) 
+        module.datas_single(dia_inicial, mes_inicial, dia_final, mes_final)
 
         time.sleep(3)
         
         while 1:
             retifica_btn = py.locateOnScreen('img/botao_retificacao.png')
             if retifica_btn:
-                py.click(x=1123, y=491)
+                py.click(retifica_btn)
                 break
 
 
@@ -41,6 +51,7 @@ def consulta_1v1():
             time.sleep(5)
             bloqueio_receita = py.locateOnScreen('img/bloqueiocomex.png')
             if bloqueio_receita:
+                py.click(x=1396, y=289)
                 module.fechar_inova()
                 time.sleep(120)
                 consulta_1v1()
@@ -76,7 +87,7 @@ def consulta_1v1():
             #consult_y = consult_y+30
             py.click(x=position_x, y=position_y)
             py.click(x=386, y=340)
-            time.sleep(5)
+            time.sleep(10)
             py.click(1123, 491)
             retificado = py.locateOnScreen('img/retificado.png')
             if retificado:
@@ -85,3 +96,4 @@ def consulta_1v1():
 
 consulta_1v1()
 
+module.consulta_porLinhas(usuario, senha, dia_inicial, mes_inicial, dia_final, mes_final)

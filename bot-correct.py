@@ -6,22 +6,20 @@ import gc
 from datetime import datetime
 
 #SEMPRE DEIXE O BLOCO DE NOTAS ABERTO E FIXO.
-
-
-def consulta_porLinhas():
+def consulta_porLinhas(usuario, senha, dia_inicial, mes_inicial, dia_final, mes_final):
     linha = 0
     while 1:
 
         di_perdidas = open('dis_perdidas.txt', 'r')
         conteudo = di_perdidas.readlines()
-        module.verifica_inova()
+        module.verifica_inova(usuario, senha)
 
         module.verificatela_di()
 
         #Clica na aba de Di's
         py.click(x=586, y=313)
 
-        module.datas_single()
+        module.datas_single(dia_inicial, mes_inicial, dia_final, mes_final)
         while 1:
             retifica_btn = py.locateOnScreen('img/botao_retificacao.png')
             if retifica_btn:
@@ -85,6 +83,3 @@ def consulta_porLinhas():
                     consulta_porLinhas()
         print('Tudo Concluído!')
         break
-
-
-consulta_porLinhas()
