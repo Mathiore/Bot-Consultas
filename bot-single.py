@@ -16,6 +16,8 @@ def consulta_1v1():
 
         module.datas_single()
 
+        time.sleep(3)
+        
         while 1:
             retifica_btn = py.locateOnScreen('img/botao_retificacao.png')
             if retifica_btn:

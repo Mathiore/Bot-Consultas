@@ -7,10 +7,11 @@ from datetime import datetime
 
 #SEMPRE DEIXE O BLOCO DE NOTAS ABERTO E FIXO.
 
-linha = 0
 
 def consulta_porLinhas():
+    linha = 0
     while 1:
+
         di_perdidas = open('dis_perdidas.txt', 'r')
         conteudo = di_perdidas.readlines()
         module.verifica_inova()
@@ -65,9 +66,13 @@ def consulta_porLinhas():
                     py.click(x=715, y=1060)
                     py.click(x=380, y=325)
                     while i < linha:
-                        py.keyDown('ctrl')
-                        py.keyDown('alt')
-                        py.press()
+                        py.keyDown('ctrl') 
+                        py.keyDown('shift')
+                        py.press(['right', 'right', 'right'])
+                        py.keyUp('ctrl')
+                        py.keyUp('shift')
+                        py.press('backspace')
+                        i = i + 1
                     py.click(x=1394, y=285)
                     module.fechar_inova()
                     time.sleep(1800)
