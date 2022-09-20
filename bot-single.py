@@ -66,12 +66,10 @@ def consulta_1v1():
                     py.click(x=658, y=1063)
                     py.click(x=1398, y=287)
                     module.fechar_inova()
+                    print("Horário agora: ", datetime.today())
                     time.sleep(1800)
-                    now = datetime.now()
-                    timestamp = datetime.timestamp(now)
                     print('Já se passaram 30 minutos!')
                     print('Realizando Limpeza de memória!')
-                    print("Horário agora: ", timestamp)
                     gc.collect()
                     consulta_1v1()
                 elif icon_pos:
@@ -95,7 +93,7 @@ def consulta_1v1():
                 print('Consultas Finalizadas')
                 py.click(sair_di)
                 break
-
+py.click(x=1144, y=288)
 consulta_1v1()
 py.click(x=1144, y=288)
 module.consulta_porLinhas(usuario, senha, dia_inicial, mes_inicial, dia_final, mes_final)
