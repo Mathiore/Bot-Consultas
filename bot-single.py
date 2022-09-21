@@ -29,10 +29,11 @@ def consulta_1v1():
         time.sleep(3)
         
         while 1:
-            retifica_btn = py.locateOnScreen('img/botao_retificacao.png')
+            retifica_btn = py.locateOnScreen('img/botao_retificacao.png', confidence= 0.9)
             if retifica_btn:
                 py.click(retifica_btn)
                 break
+                
 
 
         position_x = 1132 
@@ -43,13 +44,18 @@ def consulta_1v1():
         n = 10
 
         while i < n:
+            retificado = py.locateOnScreen('img/retificado.png')
+            if retificado:
+                print('Consultas Finalizadas Já!')
+                break
+
             py.click(x=position_x, y=position_y)
             py.click(button='right')
             py.click(x=consult_x, y=consult_y)
             time.sleep(1)
             py.click(x=1177, y=650)
             time.sleep(5)
-            bloqueio_receita = py.locateOnScreen('img/bloqueiocomex.png')
+            bloqueio_receita = py.locateOnScreen('img/bloqueiocomex.png', confidence= 0.9)
             if bloqueio_receita:
                 py.click(x=1396, y=289)
                 module.fechar_inova()
@@ -58,12 +64,14 @@ def consulta_1v1():
             else:
                 py.click(x=535, y=324)
             while 1:
-                icon_pos = py.locateOnScreen('img/concluidosingle.png')
-                retificado = py.locateOnScreen('img/retificado.png')
-                bloqueio = py.locateOnScreen('img/bloqueiosingle.png')
+                icon_pos = py.locateOnScreen('img/concluidosingle.png', confidence= 0.9)
+                retificado = py.locateOnScreen('img/retificado.png', confidence= 0.9)
+                bloqueio = py.locateOnScreen('img/bloqueiosingle.png', confidence= 0.9)
+                inova_icon = py.locateOnScreen('img/inova_icon.png', confidence= 0.9)
+                siscomex_error = py.locateOnScreen('img/erro_server.png', confidence=0.9)
                 if bloqueio:
                     module.copiar_di()
-                    py.click(x=658, y=1063)
+                    py.click(inova_icon)
                     py.click(x=1398, y=287)
                     module.fechar_inova()
                     print("Horário agora: ", datetime.today())
@@ -79,21 +87,28 @@ def consulta_1v1():
                 elif retificado:
                     print('Consultas já Finalizadas')
                     break
-            #position_x = position_x+2
-            #position_y = position_y+20
-            #consult_x = consult_x+5
-            #consult_y = consult_y+30
+                elif siscomex_error:
+                    print('Siscomex fora de Ar.')
+                    module.copiar_di()
+                    py.click(inova_icon)
+                    py.click(x=1398, y=287)
+                    module.fechar_inova()
+                    time.sleep(600)
+                    gc.collect()
+                    consulta_1v1()
+            
             py.click(x=position_x, y=position_y)
             py.click(x=386, y=340)
             time.sleep(10)
             py.click(1123, 491)
-            retificado = py.locateOnScreen('img/retificado.png')
-            sair_di = py.locateOnScreen('img/exit_di.png')
-            if retificado:
-                print('Consultas Finalizadas')
-                py.click(sair_di)
-                break
+        retificado = py.locateOnScreen('img/retificado.png')
+        sair_di = py.locateOnScreen('img/exit_di.png', confidence= 0.9)
+        if retificado:
+            print('Consultas Finalizadas')
+            py.click(sair_di)
+            break
 py.click(x=1144, y=288)
 consulta_1v1()
+print('Finalizado Consulta Geral!')
 py.click(x=1144, y=288)
 module.consulta_porLinhas(usuario, senha, dia_inicial, mes_inicial, dia_final, mes_final)

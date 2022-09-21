@@ -14,7 +14,7 @@ def abrir_consultas():
     time.sleep(1)
     py.click(x=1177, y=650)
     while 1:
-        consulta_pos = py.locateOnScreen('img/teladis.png')
+        consulta_pos = py.locateOnScreen('img/teladis.png', confidence=0.9)
         if consulta_pos:
             print('Tela de Di Aberta')
             break
@@ -32,7 +32,7 @@ def fechar_inova():
 #ALTERE A SENHA CASO USUÁRIO DIFERENTE.
 def login_inova(usuario, senha):
     while 1:
-        login_pos = py.locateOnScreen('img/login.png')
+        login_pos = py.locateOnScreen('img/login.png', confidence=0.9)
         if login_pos:
             py.press('backspace')
             py.write(usuario)
@@ -72,25 +72,36 @@ def data_consultas(dia_inicial, mes_inicial, dia_final, mes_final):
     py.write(mes_final)
 
 def verificatela_di():
-    teladi_ativa = py.locateOnScreen('img/teladis.png')
+    teladi_ativa = py.locateOnScreen('img/teladis.png', confidence=0.9)
     if teladi_ativa:
         print('Tela de DI já aberta.')
     else:
         abrir_consultas()
 
 def verifica_inova(usuario, senha):
-    inova_icon = py.locateOnScreen('img/inova_icon.png')
-    py.click(inova_icon)
-    inova_open = py.locateOnScreen('img/inova_open.png')
-    if inova_open:
-        print('Inova já está Aberto!')
-    else:
-        print('Abrindo Inova')
-        login_inova(usuario, senha)
-        time.sleep(4)
+    py.click(x=1144, y=255)
+    while 1:
+        inova_icon = py.locateOnScreen('img/inova_icon.png', confidence= 0.9)
+        inova_open = py.locateOnScreen('img/inova_open.png', confidence=0.9)
+        if inova_open:
+            print('Inova já está Aberto!')
+            break
+        elif inova_icon:
+            inova_open = py.locateOnScreen('img/inova_open.png', confidence=0.9)
+            py.click(inova_icon)
+            py.click(x=1144, y=255)
+            time.sleep(2)
+            if inova_open:
+                print('Inova já está Aberto!')
+                break
+            else:
+                print('Abrindo Inova!')
+                login_inova(usuario, senha)
+                break
+    
 
 def copiar_di():
-    bloco_notas = py.locateOnScreen('img/bloco_notas.png')
+    bloco_notas = py.locateOnScreen('img/bloco_notas.png', confidence= 0.9)
     py.click(x=601, y=388)
     py.hotkey('ctrl','a')
     py.hotkey('ctrl','c')
@@ -110,9 +121,9 @@ def consulta_porLinhas(usuario, senha, dia_inicial, mes_inicial, dia_final, mes_
         conteudo = di_perdidas.readlines()
 
         verifica_inova(usuario, senha)
-        print('Continuando')
+        
         verificatela_di()
-        print('falha')
+       
 
         #Clica na aba de Di's
         py.click(x=586, y=313)
@@ -120,7 +131,7 @@ def consulta_porLinhas(usuario, senha, dia_inicial, mes_inicial, dia_final, mes_
         datas_single(dia_inicial, mes_inicial, dia_final, mes_final)
 
         while 1:
-            retifica_btn = py.locateOnScreen('img/botao_retificacao.png')
+            retifica_btn = py.locateOnScreen('img/botao_retificacao.png', confidence=0.9)
             if retifica_btn:
                 break
         py.click(x=1132, y=525)
@@ -130,7 +141,7 @@ def consulta_porLinhas(usuario, senha, dia_inicial, mes_inicial, dia_final, mes_
         py.click(x=1177, y=650)
         while 1:
             time.sleep(8)
-            siscomex = py.locateOnScreen('img/aberto_consulta.png')
+            siscomex = py.locateOnScreen('img/aberto_consulta.png', confidence=0.9)
             if siscomex:
                 break
             else:
@@ -150,8 +161,8 @@ def consulta_porLinhas(usuario, senha, dia_inicial, mes_inicial, dia_final, mes_
             print('Consultando: ', conteudo[linha])
             linha = linha + 1
             while 1:
-                icon_pos = py.locateOnScreen('img/concluidosingle.png')
-                bloqueio = py.locateOnScreen('img/bloqueiosingle.png')
+                icon_pos = py.locateOnScreen('img/concluidosingle.png', confidence= 0.9)
+                bloqueio = py.locateOnScreen('img/bloqueiosingle.png', confidence= 0.9)
                 bloco_notas = py.locateOnScreen('img/bloco_notas.png', confidence= 0.9)
                 ref_position = py.locateOnScreen('img/position_bloco.png', confidence= 0.9)
                 if icon_pos:
