@@ -52,12 +52,18 @@ def datas_single(dia_inicial, mes_inicial, dia_final, mes_final):
     py.write(dia_inicial)
     py.press('-')
     py.write(mes_inicial)
+    py.press('-')
+    py.write('2010')
     py.press('tab')
     py.press('space')
     py.click(x=535, y=401)
     py.write(dia_final)
     py.press('-')
     py.write(mes_final)
+    py.press('-')
+    py.write('2010')
+    py.click(x=904, y=399)
+    py.write('censi')
     py.click(x=386, y=340)
 
 

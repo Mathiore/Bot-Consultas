@@ -23,7 +23,12 @@ def consulta_1v1():
         module.verificatela_di()
 
         #Clica na aba de Di's
-        py.click(x=586, y=313) 
+        while 1:
+            aba_consulta = py.locateOnScreen('img/aba_consulta.png', confidence=0.9)
+            if aba_consulta:
+                py.click(aba_consulta)
+                break
+
         module.datas_single(dia_inicial, mes_inicial, dia_final, mes_final)
 
         time.sleep(3)
@@ -65,7 +70,7 @@ def consulta_1v1():
                 py.click(x=535, y=324)
             while 1:
                 icon_pos = py.locateOnScreen('img/concluidosingle.png', confidence= 0.9)
-                retificado = py.locateOnScreen('img/retificado.png', confidence= 0.9)
+                retificado = py.locateOnScreen('img/retificado.png')
                 bloqueio = py.locateOnScreen('img/bloqueiosingle.png', confidence= 0.9)
                 inova_icon = py.locateOnScreen('img/inova_icon.png', confidence= 0.9)
                 siscomex_error = py.locateOnScreen('img/erro_server.png', confidence=0.9)
@@ -98,9 +103,14 @@ def consulta_1v1():
                     consulta_1v1()
             
             py.click(x=position_x, y=position_y)
-            py.click(x=386, y=340)
-            time.sleep(10)
-            py.click(1123, 491)
+            #CLICA EM BOTÃO DE EXIBIR DI's
+            #py.click(x=386, y=340)
+            if position_y <= 720:
+                position_y = position_y+20
+                consult_y = consult_y+20
+            time.sleep(5)
+            py.press('down')
+
         retificado = py.locateOnScreen('img/retificado.png')
         sair_di = py.locateOnScreen('img/exit_di.png', confidence= 0.9)
         if retificado:
