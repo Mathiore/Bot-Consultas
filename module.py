@@ -45,7 +45,7 @@ def login_inova(usuario, senha):
             break
 
 
-def datas_single(dia_inicial, mes_inicial, dia_final, mes_final):
+def datas_single(dia_inicial, mes_inicial, dia_final, mes_final, ano):
     py.press('tab')
     py.press('space')
     py.click(x=405, y=401)
@@ -53,7 +53,7 @@ def datas_single(dia_inicial, mes_inicial, dia_final, mes_final):
     py.press('-')
     py.write(mes_inicial)
     py.press('-')
-    py.write('2010')
+    py.write(ano)
     py.press('tab')
     py.press('space')
     py.click(x=535, y=401)
@@ -61,9 +61,9 @@ def datas_single(dia_inicial, mes_inicial, dia_final, mes_final):
     py.press('-')
     py.write(mes_final)
     py.press('-')
-    py.write('2010')
+    py.write(ano)
     py.click(x=904, y=399)
-    py.write('censi')
+    
     py.click(x=386, y=340)
 
 
@@ -93,17 +93,18 @@ def verifica_inova(usuario, senha):
             print('Inova já está Aberto!')
             break
         elif inova_icon:
-            inova_open = py.locateOnScreen('img/inova_open.png', confidence=0.9)
             py.click(inova_icon)
             py.click(x=1144, y=255)
-            time.sleep(2)
-            if inova_open:
-                print('Inova já está Aberto!')
-                break
-            else:
-                print('Abrindo Inova!')
-                login_inova(usuario, senha)
-                break
+            time.sleep(1)
+            while 1:
+                inova_open = py.locateOnScreen('img/inova_open.png', confidence=0.9)
+                if inova_open:
+                    print('Inova já está Aberto!')
+                    break
+                else:
+                    print('Abrindo Inova!')
+                    login_inova(usuario, senha)
+                    break
     
 
 def copiar_di():
@@ -119,7 +120,7 @@ def copiar_di():
     py.keyUp('ctrl')
     
 
-def consulta_porLinhas(usuario, senha, dia_inicial, mes_inicial, dia_final, mes_final):
+def consulta_porLinhas(usuario, senha, dia_inicial, mes_inicial, dia_final, mes_final, ano):
     linha = 0
     while 1:
 
@@ -134,7 +135,7 @@ def consulta_porLinhas(usuario, senha, dia_inicial, mes_inicial, dia_final, mes_
         #Clica na aba de Di's
         py.click(x=586, y=313)
 
-        datas_single(dia_inicial, mes_inicial, dia_final, mes_final)
+        datas_single(dia_inicial, mes_inicial, dia_final, mes_final, ano)
 
         while 1:
             retifica_btn = py.locateOnScreen('img/botao_retificacao.png', confidence=0.9)

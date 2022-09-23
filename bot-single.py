@@ -14,6 +14,7 @@ dia_inicial = input('Digite o dia inicial da consulta: ')
 mes_inicial = input('Digite o mês inicial da consulta: ')
 dia_final = input('Digite o dia final da consulta: ')
 mes_final = input('Digite o mês final da consulta: ') 
+ano = input('Digite o ano do período: ')
 
 def consulta_1v1():
 
@@ -29,7 +30,7 @@ def consulta_1v1():
                 py.click(aba_consulta)
                 break
 
-        module.datas_single(dia_inicial, mes_inicial, dia_final, mes_final)
+        module.datas_single(dia_inicial, mes_inicial, dia_final, mes_final, ano)
 
         time.sleep(3)
         
@@ -50,8 +51,10 @@ def consulta_1v1():
 
         while i < n:
             retificado = py.locateOnScreen('img/retificado.png')
+            sair_di = py.locateOnScreen('img/exit_di.png', confidence= 0.9)
             if retificado:
                 print('Consultas Finalizadas Já!')
+                py.click(sair_di)
                 break
 
             py.click(x=position_x, y=position_y)
@@ -106,19 +109,17 @@ def consulta_1v1():
             #CLICA EM BOTÃO DE EXIBIR DI's
             #py.click(x=386, y=340)
             if position_y <= 720:
-                position_y = position_y+20
-                consult_y = consult_y+20
+                position_y = position_y+23
+                consult_y = consult_y+23
             time.sleep(5)
             py.press('down')
-
-        retificado = py.locateOnScreen('img/retificado.png')
-        sair_di = py.locateOnScreen('img/exit_di.png', confidence= 0.9)
-        if retificado:
-            print('Consultas Finalizadas')
-            py.click(sair_di)
-            break
+            select_retificado = py.locateOnScreen('img/select_retificado.png')
+            if select_retificado:
+                print('A DI selecionada já está retificada!')
+                break
+        break
 py.click(x=1144, y=288)
-consulta_1v1()
+#consulta_1v1()
 print('Finalizado Consulta Geral!')
 py.click(x=1144, y=288)
-module.consulta_porLinhas(usuario, senha, dia_inicial, mes_inicial, dia_final, mes_final)
+module.consulta_porLinhas(usuario, senha, dia_inicial, mes_inicial, dia_final, mes_final, ano)
