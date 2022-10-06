@@ -40,7 +40,7 @@ def login_inova(usuario, senha):
             py.write(senha)
             py.press('enter')
             print('Conta Acessada')
-            time.sleep(3)
+            time.sleep(4)
             py.click(x=1406, y=267)
             break
 
@@ -63,7 +63,7 @@ def datas_single(dia_inicial, mes_inicial, dia_final, mes_final, ano):
     py.press('-')
     py.write(ano)
     py.click(x=904, y=399)
-    
+    #py.write('')
     py.click(x=386, y=340)
 
 
@@ -147,7 +147,7 @@ def consulta_porLinhas(usuario, senha, dia_inicial, mes_inicial, dia_final, mes_
         time.sleep(1)
         py.click(x=1177, y=650)
         while 1:
-            time.sleep(8)
+            time.sleep(3)
             siscomex = py.locateOnScreen('img/aberto_consulta.png', confidence=0.9)
             if siscomex:
                 break
@@ -156,7 +156,7 @@ def consulta_porLinhas(usuario, senha, dia_inicial, mes_inicial, dia_final, mes_
                 py.click(x=1394, y=285)
                 fechar_inova()
                 gc.collect()
-                consulta_porLinhas()
+                consulta_porLinhas(usuario, senha, dia_inicial, mes_inicial, dia_final, mes_final, ano)
         total_linhas = len(conteudo)
         while linha <= total_linhas:
             py.click(x=597, y=390)
@@ -166,39 +166,33 @@ def consulta_porLinhas(usuario, senha, dia_inicial, mes_inicial, dia_final, mes_
             time.sleep(1)
             py.click(x=535, y=324)
             print('Consultando: ', conteudo[linha])
-            linha = linha + 1
             while 1:
                 icon_pos = py.locateOnScreen('img/concluidosingle.png', confidence= 0.9)
-                bloqueio = py.locateOnScreen('img/bloqueiosingle.png', confidence= 0.9)
-                bloco_notas = py.locateOnScreen('img/bloco_notas.png', confidence= 0.9)
-                ref_position = py.locateOnScreen('img/position_bloco.png', confidence= 0.9)
+                bloqueio = py.locateOnScreen('img/bloqueiosingle.png', confidence= 0.9)  
                 if icon_pos:
                     py.click(x=1046, y=596)
                     print('Concluido!')
+                    with open('dis_perdidas.txt', 'r+') as file:
+                        di = file.readlines()
+                        file.seek(0)
+                        for linhas in di:
+                            if linhas != di[linha]:
+                                file.write(linhas)
+                        file.truncate()
+                    file.close()
+                    linha = linha + 1
                     break
+                
                 elif bloqueio:
                     print('Falhou!')
-                    print('Apagando DIs Concluídas.')
-                    i = 0
-                    py.click(bloco_notas)
-                    py.click(x=ref_position.left, y=ref_position.top+25)
-                    while i < linha:
-                        py.keyDown('ctrl') 
-                        py.keyDown('shift')
-                        py.press(['right', 'right', 'right'])
-                        py.keyUp('ctrl')
-                        py.keyUp('shift')
-                        py.press('backspace')
-                        i = i + 1
+                    time.sleep(1)
                     py.click(x=1394, y=285)
                     fechar_inova()
+                    print("Horário agora: ", datetime.today())
                     time.sleep(1800)
-                    now = datetime.now()
-                    timestamp = datetime.timestamp(now)
                     print('Já se passaram 30 minutos!')
                     print('Realizando Limpeza de memória!')
-                    print("Horário agora: ", timestamp)
                     gc.collect()
-                    consulta_porLinhas()
+                    consulta_porLinhas(usuario, senha, dia_inicial, mes_inicial, dia_final, mes_final, ano)
         print('Tudo Concluído!')
         break        

@@ -8,7 +8,13 @@ currentMouseX, currentMouseY = py.position()
 
 print(py.position())
 
-position_x = 1132 
-position_y = 525
-consult_x = 1144
-consult_y = 530
+
+with open('teste.txt', 'r+') as file:
+    di = file.readlines()
+    file.seek(0)
+    for linhas in di:
+        if linhas != di[linha]:
+            file.write(linhas)
+    file.truncate()        
+
+#y.click(x=ref_position.left, y=ref_position.top+35)

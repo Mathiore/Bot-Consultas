@@ -50,14 +50,13 @@ def consulta_1v1():
         n = 10
 
         while i < n:
-            retificado = py.locateOnScreen('img/retificado.png')
-            sair_di = py.locateOnScreen('img/exit_di.png', confidence= 0.9)
-            if retificado:
-                print('Consultas Finalizadas Já!')
-                py.click(sair_di)
-                break
-
+            
             py.click(x=position_x, y=position_y)
+            select_retificado = py.locateOnScreen('img/select_retificado.png')
+            if select_retificado:
+                print('A DI selecionada já está retificada!')
+                module.fechar_inova()
+                break
             py.click(button='right')
             py.click(x=consult_x, y=consult_y)
             time.sleep(1)
@@ -66,6 +65,7 @@ def consulta_1v1():
             bloqueio_receita = py.locateOnScreen('img/bloqueiocomex.png', confidence= 0.9)
             if bloqueio_receita:
                 py.click(x=1396, y=289)
+                print('Bloqueio Siscomex')
                 module.fechar_inova()
                 time.sleep(120)
                 consulta_1v1()
@@ -94,6 +94,8 @@ def consulta_1v1():
                     break
                 elif retificado:
                     print('Consultas já Finalizadas')
+                    sair_di = py.locateOnScreen('img/exit_di.png', confidence= 0.9)
+                    py.click(sair_di)
                     break
                 elif siscomex_error:
                     print('Siscomex fora de Ar.')
@@ -116,10 +118,15 @@ def consulta_1v1():
             select_retificado = py.locateOnScreen('img/select_retificado.png')
             if select_retificado:
                 print('A DI selecionada já está retificada!')
+                module.fechar_inova()
+                module.consulta_porLinhas(usuario, senha, dia_inicial, mes_inicial, dia_final, mes_final, ano)
                 break
         break
-py.click(x=1144, y=288)
+
+#py.click(x=1144, y=288)
 #consulta_1v1()
-print('Finalizado Consulta Geral!')
+
+
+#print('Finalizado Consulta Geral!')
 py.click(x=1144, y=288)
 module.consulta_porLinhas(usuario, senha, dia_inicial, mes_inicial, dia_final, mes_final, ano)
