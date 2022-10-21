@@ -56,6 +56,8 @@ def consulta_1v1():
             if select_retificado:
                 print('A DI selecionada já está retificada!')
                 module.fechar_inova()
+                time.sleep(3)
+                module.consulta_porLinhas(usuario, senha, dia_inicial, mes_inicial, dia_final, mes_final, ano)
                 break
             py.click(button='right')
             py.click(x=consult_x, y=consult_y)
@@ -66,8 +68,10 @@ def consulta_1v1():
             if bloqueio_receita:
                 py.click(x=1396, y=289)
                 print('Bloqueio Siscomex')
+                sair_di = py.locateOnScreen('img/exit_di.png', confidence= 0.9)
+                py.click(sair_di)
                 module.fechar_inova()
-                time.sleep(120)
+                time.sleep(5)
                 consulta_1v1()
             else:
                 py.click(x=535, y=324)
@@ -75,9 +79,21 @@ def consulta_1v1():
                 icon_pos = py.locateOnScreen('img/concluidosingle.png', confidence= 0.9)
                 retificado = py.locateOnScreen('img/retificado.png')
                 bloqueio = py.locateOnScreen('img/bloqueiosingle.png', confidence= 0.9)
+                bloqueio2 = py.locateOnScreen('img/bloqueio2.png', confidence=0.9)
                 inova_icon = py.locateOnScreen('img/inova_icon.png', confidence= 0.9)
                 siscomex_error = py.locateOnScreen('img/erro_server.png', confidence=0.9)
                 if bloqueio:
+                    module.copiar_di()
+                    py.click(inova_icon)
+                    py.click(x=1398, y=287)
+                    module.fechar_inova()
+                    print("Horário agora: ", datetime.today())
+                    time.sleep(1800)
+                    print('Já se passaram 30 minutos!')
+                    print('Realizando Limpeza de memória!')
+                    gc.collect()
+                    consulta_1v1()
+                elif bloqueio2:
                     module.copiar_di()
                     py.click(inova_icon)
                     py.click(x=1398, y=287)
@@ -96,6 +112,9 @@ def consulta_1v1():
                     print('Consultas já Finalizadas')
                     sair_di = py.locateOnScreen('img/exit_di.png', confidence= 0.9)
                     py.click(sair_di)
+                    print('Começando Consulta das DIs Perdidas')
+                    time.sleep(3)
+                    module.consulta_porLinhas(usuario, senha, dia_inicial, mes_inicial, dia_final, mes_final, ano)
                     break
                 elif siscomex_error:
                     print('Siscomex fora de Ar.')
@@ -119,14 +138,15 @@ def consulta_1v1():
             if select_retificado:
                 print('A DI selecionada já está retificada!')
                 module.fechar_inova()
+                time.sleep(3)
                 module.consulta_porLinhas(usuario, senha, dia_inicial, mes_inicial, dia_final, mes_final, ano)
                 break
         break
 
-#py.click(x=1144, y=288)
-#consulta_1v1()
-
-
-#print('Finalizado Consulta Geral!')
 py.click(x=1144, y=288)
+consulta_1v1()
+
+
+print('Finalizado Consulta Geral!')
+#py.click(x=1144, y=288)
 module.consulta_porLinhas(usuario, senha, dia_inicial, mes_inicial, dia_final, mes_final, ano)

@@ -40,7 +40,7 @@ def login_inova(usuario, senha):
             py.write(senha)
             py.press('enter')
             print('Conta Acessada')
-            time.sleep(4)
+            time.sleep(6)
             py.click(x=1406, y=267)
             break
 
@@ -168,7 +168,8 @@ def consulta_porLinhas(usuario, senha, dia_inicial, mes_inicial, dia_final, mes_
             print('Consultando: ', conteudo[linha])
             while 1:
                 icon_pos = py.locateOnScreen('img/concluidosingle.png', confidence= 0.9)
-                bloqueio = py.locateOnScreen('img/bloqueiosingle.png', confidence= 0.9)  
+                bloqueio = py.locateOnScreen('img/bloqueiosingle.png', confidence= 0.9)
+                bloqueio2 = py.locateOnScreen('img/bloqueio2.png', confidence=0.9)  
                 if icon_pos:
                     py.click(x=1046, y=596)
                     print('Concluido!')
@@ -184,6 +185,17 @@ def consulta_porLinhas(usuario, senha, dia_inicial, mes_inicial, dia_final, mes_
                     break
                 
                 elif bloqueio:
+                    print('Falhou!')
+                    time.sleep(1)
+                    py.click(x=1394, y=285)
+                    fechar_inova()
+                    print("Horário agora: ", datetime.today())
+                    time.sleep(1800)
+                    print('Já se passaram 30 minutos!')
+                    print('Realizando Limpeza de memória!')
+                    gc.collect()
+                    consulta_porLinhas(usuario, senha, dia_inicial, mes_inicial, dia_final, mes_final, ano)
+                elif bloqueio2:
                     print('Falhou!')
                     time.sleep(1)
                     py.click(x=1394, y=285)
